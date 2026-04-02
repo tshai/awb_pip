@@ -19,8 +19,8 @@ WRITE_PREFIXES = {
 
 
 @typechecked
-def parse_params(raw: str) -> Any:
-    if raw == "":
+def parse_params(raw: str | None) -> Any:
+    if raw is None or raw == "":
         return None
     try:
         parsed = json.loads(raw)
