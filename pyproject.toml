@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "my-package-utils"
+version = "0.1.0"
+description = "Reusable standalone utility functions extracted from appBuilder."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "typeguard>=4.1.0",
+  "lxml>=5.0.0",
+  "beautifulsoup4>=4.12.0",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["my_package*"]
