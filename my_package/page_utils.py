@@ -5,12 +5,29 @@ from typeguard import typechecked  # type: ignore
 
 @typechecked
 def to_bool(value: object) -> bool:
+    """Convert bool into the target representation.
+
+    Args:
+        value (object): Value for value.
+
+    Returns:
+        bool: True when the condition is met; otherwise False.
+    """
     normalized = str(value or "").strip().lower()
     return normalized in {"1", "true", "yes", "on"}
 
 
 @typechecked
 def normalize_page_file_name(page_name: str, protected_page_files: set[str]) -> str:
+    """Normalize page file name into a consistent format.
+
+    Args:
+        page_name (str): Value for page name.
+        protected_page_files (set[str]): File-system path or file name used by this function.
+
+    Returns:
+        str: String result produced by this function.
+    """
     normalized_name = re.sub(r"\s+", " ", str(page_name or "").strip())
     if not normalized_name:
         raise ValueError("Page name is required.")

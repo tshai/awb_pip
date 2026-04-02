@@ -6,6 +6,14 @@ from typeguard import typechecked  # type: ignore
 
 @typechecked
 def extract_json_candidate(text: str) -> str:
+    """Extract json candidate from the provided data.
+
+    Args:
+        text (str): Value for text.
+
+    Returns:
+        str: String result produced by this function.
+    """
     raw = str(text or "").strip()
     if not raw:
         return ""
@@ -44,6 +52,14 @@ def extract_json_candidate(text: str) -> str:
 
 @typechecked
 def parse_model_json_object(text: str) -> dict[str, Any]:
+    """Parse model json object into a structured Python value.
+
+    Args:
+        text (str): Value for text.
+
+    Returns:
+        dict[str, Any]: Dictionary containing computed output values.
+    """
     normalized_text = str(text or "").strip()
     if not normalized_text:
         raise ValueError("Model returned empty response")

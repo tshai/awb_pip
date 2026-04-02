@@ -10,6 +10,14 @@ VOID_TAGS = {"img", "meta", "link", "br", "hr", "input"}
 
 @typechecked
 def normalize_lxml_error(msg: str) -> dict[str, Any]:
+    """Normalize lxml error into a consistent format.
+
+    Args:
+        msg (str): Value for msg.
+
+    Returns:
+        dict[str, Any]: Dictionary containing computed output values.
+    """
     line = None
     column = None
 
@@ -33,6 +41,14 @@ def normalize_lxml_error(msg: str) -> dict[str, Any]:
 
 @typechecked
 def fix_common_entities(content: str) -> str:
+    """Compute fix common entities for this workflow.
+
+    Args:
+        content (str): Value for content.
+
+    Returns:
+        str: String result produced by this function.
+    """
     common_entities = [
         "nbsp", "copy", "reg", "deg", "euro", "pound", "yen", "cent",
         "amp", "lt", "gt", "quot", "apos", "bull", "middot", "hellip",
@@ -56,6 +72,15 @@ def fix_common_entities(content: str) -> str:
 
 @typechecked
 def find_unclosed_void_tags(content: str, tag: str) -> list[dict[str, Any]]:
+    """Find unclosed void tags within the input data.
+
+    Args:
+        content (str): Value for content.
+        tag (str): Value for tag.
+
+    Returns:
+        list[dict[str, Any]]: Dictionary containing computed output values.
+    """
     errors: list[dict[str, Any]] = []
     pos = 0
 
@@ -87,6 +112,14 @@ def find_unclosed_void_tags(content: str, tag: str) -> list[dict[str, Any]]:
 
 @typechecked
 def find_obvious_html_breaks(content: str) -> list[dict[str, Any]]:
+    """Find obvious html breaks within the input data.
+
+    Args:
+        content (str): Value for content.
+
+    Returns:
+        list[dict[str, Any]]: Dictionary containing computed output values.
+    """
     errors: list[dict[str, Any]] = []
 
     html_pos = content.find("<html")
@@ -111,6 +144,14 @@ def find_obvious_html_breaks(content: str) -> list[dict[str, Any]]:
 
 @typechecked
 def validate_css_properties(css: str) -> list[dict[str, Any]]:
+    """Validate css properties against expected rules.
+
+    Args:
+        css (str): Value for css.
+
+    Returns:
+        list[dict[str, Any]]: Dictionary containing computed output values.
+    """
     errors: list[dict[str, Any]] = []
     typos = {
         "colour": "color",
@@ -127,6 +168,14 @@ def validate_css_properties(css: str) -> list[dict[str, Any]]:
 
 @typechecked
 def validate_css_basic(content: str) -> list[dict[str, Any]]:
+    """Validate css basic against expected rules.
+
+    Args:
+        content (str): Value for content.
+
+    Returns:
+        list[dict[str, Any]]: Dictionary containing computed output values.
+    """
     errors: list[dict[str, Any]] = []
     style_blocks = re.findall(r"<style[^>]*>(.*?)</style>", content, re.S | re.I)
 
@@ -146,6 +195,14 @@ def validate_css_basic(content: str) -> list[dict[str, Any]]:
 
 @typechecked
 def validate_html_structure(content: str) -> list[dict[str, Any]]:
+    """Validate html structure against expected rules.
+
+    Args:
+        content (str): Value for content.
+
+    Returns:
+        list[dict[str, Any]]: Dictionary containing computed output values.
+    """
     errors: list[dict[str, Any]] = []
     seen: set[tuple[Any, Any, Any]] = set()
 

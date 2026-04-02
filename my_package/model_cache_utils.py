@@ -9,6 +9,11 @@ from typeguard import typechecked  # type: ignore
 
 @typechecked
 def internal_proxy_token() -> str:
+    """Compute internal proxy token for this workflow.
+
+    Returns:
+        str: String result produced by this function.
+    """
     explicit_token = str(os.getenv("INTERNAL_LLM_PROXY_TOKEN") or "").strip()
     if explicit_token:
         return explicit_token
@@ -22,6 +27,14 @@ def internal_proxy_token() -> str:
 
 @typechecked
 def extract_tool_schema_for_cache(tool: object) -> dict:
+    """Extract tool schema for cache from the provided data.
+
+    Args:
+        tool (object): Value for tool.
+
+    Returns:
+        dict: Dictionary containing computed output values.
+    """
     args_schema = getattr(tool, "args_schema", None)
     if args_schema is None:
         return {"type": "object", "properties": {}}
@@ -45,6 +58,14 @@ def extract_tool_schema_for_cache(tool: object) -> dict:
 
 @typechecked
 def build_cache_tools_json(tools_site: object) -> str:
+    """Build cache tools json from the provided inputs.
+
+    Args:
+        tools_site (object): Value for tools site.
+
+    Returns:
+        str: String result produced by this function.
+    """
     if not isinstance(tools_site, (list, tuple)):
         raise ValueError("tools_site must be a list or tuple of tools.")
 
@@ -73,6 +94,14 @@ def build_cache_tools_json(tools_site: object) -> str:
 
 @typechecked
 def strip_system_messages_for_cached_content(messages_site: object) -> list[object]:
+    """Strip system messages for cached content from the given value.
+
+    Args:
+        messages_site (object): Value for messages site.
+
+    Returns:
+        list[object]: List containing computed output items.
+    """
     if not isinstance(messages_site, (list, tuple)):
         raise ValueError("messages_site must be a list or tuple.")
 
@@ -110,6 +139,16 @@ def strip_system_messages_for_cached_content(messages_site: object) -> list[obje
 
 @typechecked
 def build_gemini_cache_key_and_instructions(system_promte: object, resolved_model: str, tools_site: object) -> tuple[str, str]:
+    """Build gemini cache key and instructions from the provided inputs.
+
+    Args:
+        system_promte (object): Value for system promte.
+        resolved_model (str): Value for resolved model.
+        tools_site (object): Value for tools site.
+
+    Returns:
+        tuple[str, str]: Tuple containing computed output values.
+    """
     normalized_model = str(resolved_model).strip()
     normalized_system_promte = str(system_promte).strip()
     if not normalized_model:
@@ -131,12 +170,28 @@ def build_gemini_cache_key_and_instructions(system_promte: object, resolved_mode
 
 @typechecked
 def is_cache_id_input(raw_value: str) -> bool:
+    """Return whether cache id input is true for the given input.
+
+    Args:
+        raw_value (str): Raw input value for value.
+
+    Returns:
+        bool: True when the condition is met; otherwise False.
+    """
     normalized = str(raw_value or "").strip()
     return normalized.lower().startswith("cachedcontents/")
 
 
 @typechecked
 def parse_tool_names_from_cache_row(tools_list_raw: object) -> list[str]:
+    """Parse tool names from cache row into a structured Python value.
+
+    Args:
+        tools_list_raw (object): Value for tools list raw.
+
+    Returns:
+        list[str]: List containing computed output items.
+    """
     normalized_raw = str(tools_list_raw or "").strip()
     if not normalized_raw:
         raise ValueError("tools_list is required in llm_cache_id to recreate cache.")

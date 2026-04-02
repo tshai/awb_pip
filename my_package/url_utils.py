@@ -6,6 +6,14 @@ from typeguard import typechecked  # type: ignore
 
 @typechecked
 def ensure_http_url(raw_url: str) -> str:
+    """Ensure http url satisfies required constraints.
+
+    Args:
+        raw_url (str): Raw input value for url.
+
+    Returns:
+        str: String result produced by this function.
+    """
     cleaned = raw_url.strip()
     if not cleaned:
         raise ValueError("start_url is required")
@@ -26,6 +34,14 @@ def ensure_http_url(raw_url: str) -> str:
 
 @typechecked
 def normalize_url(raw_url: str) -> str:
+    """Normalize url into a consistent format.
+
+    Args:
+        raw_url (str): Raw input value for url.
+
+    Returns:
+        str: String result produced by this function.
+    """
     parsed = urlparse(raw_url)
     if not parsed.scheme or not parsed.netloc:
         raise ValueError("URL normalization requires an absolute URL")
@@ -45,6 +61,16 @@ def normalize_url(raw_url: str) -> str:
 
 @typechecked
 def extract_links(current_url: str, html: str, base_netloc: str) -> tuple[list[str], list[str]]:
+    """Extract links from the provided data.
+
+    Args:
+        current_url (str): URL or link value used by this function.
+        html (str): HTML content or fragment to process.
+        base_netloc (str): Value for base netloc.
+
+    Returns:
+        tuple[list[str], list[str]]: List containing computed output items.
+    """
     soup = BeautifulSoup(html, "html.parser")
     internal_links: list[str] = []
     external_links: list[str] = []

@@ -8,7 +8,14 @@ _GUID_PATTERN = re.compile(r"^[a-zA-Z0-9-]{1,64}$")
 
 @typechecked
 def validate_file_name(file_name: str) -> tuple[bool, str]:
-    """Validate file_name is alphanumeric with optional underscores and .html extension."""
+    """Validate file name against expected rules.
+
+    Args:
+        file_name (str): File-system path or file name used by this function.
+
+    Returns:
+        tuple[bool, str]: Tuple containing computed output values.
+    """
     file_name_stripped = str(file_name or "").strip()
     if not file_name_stripped:
         return False, "file_name is required"
@@ -28,6 +35,14 @@ def validate_file_name(file_name: str) -> tuple[bool, str]:
 
 @typechecked
 def is_valid_endpoint(endpoint: str) -> bool:
+    """Return whether valid endpoint is true for the given input.
+
+    Args:
+        endpoint (str): Value for endpoint.
+
+    Returns:
+        bool: True when the condition is met; otherwise False.
+    """
     endpoint_ref = str(endpoint or "").strip()
     if not endpoint_ref:
         return False
@@ -38,6 +53,15 @@ def is_valid_endpoint(endpoint: str) -> bool:
 
 @typechecked
 def safe_guid_for_path(value: str, fallback: str) -> str:
+    """Compute safe guid for path for this workflow.
+
+    Args:
+        value (str): Value for value.
+        fallback (str): Value for fallback.
+
+    Returns:
+        str: String result produced by this function.
+    """
     value_ref = str(value or "").strip()
     if _GUID_PATTERN.fullmatch(value_ref):
         return value_ref

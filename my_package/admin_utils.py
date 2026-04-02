@@ -7,6 +7,14 @@ from typeguard import typechecked  # type: ignore
 
 @typechecked
 def parse_codegen_tables(raw_tables: str) -> str:
+    """Parse codegen tables into a structured Python value.
+
+    Args:
+        raw_tables (str): Raw input value for tables.
+
+    Returns:
+        str: String result produced by this function.
+    """
     text = str(raw_tables or "").strip()
     if not text:
         return ""
@@ -30,6 +38,15 @@ def parse_codegen_tables(raw_tables: str) -> str:
 
 @typechecked
 def validate_full_qa_positive_int(raw_value: str, field_name: str) -> int:
+    """Validate full qa positive int against expected rules.
+
+    Args:
+        raw_value (str): Raw input value for value.
+        field_name (str): Value for field name.
+
+    Returns:
+        int: Integer result produced by this function.
+    """
     try:
         parsed = int(str(raw_value).strip())
     except (TypeError, ValueError):
@@ -41,6 +58,14 @@ def validate_full_qa_positive_int(raw_value: str, field_name: str) -> int:
 
 @typechecked
 def validate_full_qa_run_llm(raw_value: str) -> str:
+    """Validate full qa run llm against expected rules.
+
+    Args:
+        raw_value (str): Raw input value for value.
+
+    Returns:
+        str: String result produced by this function.
+    """
     normalized = str(raw_value).strip().lower()
     if normalized not in {"true", "false"}:
         raise ValueError("Run LLM must be true or false.")
@@ -49,6 +74,14 @@ def validate_full_qa_run_llm(raw_value: str) -> str:
 
 @typechecked
 def validate_full_qa_start_url(raw_value: str) -> str:
+    """Validate full qa start url against expected rules.
+
+    Args:
+        raw_value (str): Raw input value for value.
+
+    Returns:
+        str: String result produced by this function.
+    """
     normalized = str(raw_value).strip()
     if not normalized:
         raise ValueError("Start URL is required.")
@@ -59,6 +92,14 @@ def validate_full_qa_start_url(raw_value: str) -> str:
 
 @typechecked
 def normalize_gemini_admin_model(raw_model: str) -> str:
+    """Normalize gemini admin model into a consistent format.
+
+    Args:
+        raw_model (str): Raw input value for model.
+
+    Returns:
+        str: String result produced by this function.
+    """
     normalized_model = str(raw_model).strip()
     allowed_models = {"gemini-2.5-flash", "gemini-3-flash-preview"}
     if normalized_model not in allowed_models:
@@ -68,6 +109,14 @@ def normalize_gemini_admin_model(raw_model: str) -> str:
 
 @typechecked
 def normalize_admin_tools_json_input(tools_json_input: str) -> str:
+    """Normalize admin tools json input into a consistent format.
+
+    Args:
+        tools_json_input (str): JSON text/value used by this function.
+
+    Returns:
+        str: String result produced by this function.
+    """
     normalized_tools_json_input = str(tools_json_input).strip()
     if not normalized_tools_json_input:
         raise ValueError("tools_json is required.")
@@ -85,6 +134,14 @@ def normalize_admin_tools_json_input(tools_json_input: str) -> str:
 
 @typechecked
 def validate_admin_expire_time_hours_input(expire_time_hours_input: str) -> int:
+    """Validate admin expire time hours input against expected rules.
+
+    Args:
+        expire_time_hours_input (str): Value for expire time hours input.
+
+    Returns:
+        int: Integer result produced by this function.
+    """
     normalized_value = str(expire_time_hours_input).strip()
     if not normalized_value:
         raise ValueError("expire_time_hours is required.")
@@ -105,6 +162,18 @@ def build_admin_cache_identifier(
     user_message_input: str,
     tools_json_input: str,
 ) -> str:
+    """Build admin cache identifier from the provided inputs.
+
+    Args:
+        resolved_model_name (str): Value for resolved model name.
+        llm_model_name_input (str): Value for llm model name input.
+        system_promte_input (str): Value for system promte input.
+        user_message_input (str): Value for user message input.
+        tools_json_input (str): JSON text/value used by this function.
+
+    Returns:
+        str: String result produced by this function.
+    """
     normalized_model = str(resolved_model_name).strip()
     if not normalized_model:
         raise ValueError("Resolved model name is required.")

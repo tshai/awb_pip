@@ -3,6 +3,14 @@ from typeguard import typechecked  # type: ignore
 
 @typechecked
 def extract_google_cache_test_response_text(response_obj: object) -> str:
+    """Extract google cache test response text from the provided data.
+
+    Args:
+        response_obj (object): Value for response obj.
+
+    Returns:
+        str: String result produced by this function.
+    """
     response_text = str(getattr(response_obj, "text", "") or "").strip()
     if response_text:
         return response_text
@@ -27,6 +35,14 @@ def extract_google_cache_test_response_text(response_obj: object) -> str:
 
 @typechecked
 def to_serializable_cached_value(value: object) -> object:
+    """Convert serializable cached value into the target representation.
+
+    Args:
+        value (object): Value for value.
+
+    Returns:
+        object: Computed result from this function.
+    """
     if value is None:
         return None
     if isinstance(value, (str, int, float, bool)):
@@ -76,6 +92,14 @@ def to_serializable_cached_value(value: object) -> object:
 
 @typechecked
 def extract_google_cached_system_instruction_text(cached_content_obj: object) -> str:
+    """Extract google cached system instruction text from the provided data.
+
+    Args:
+        cached_content_obj (object): Value for cached content obj.
+
+    Returns:
+        str: String result produced by this function.
+    """
     system_instruction = getattr(cached_content_obj, "system_instruction", None)
     if system_instruction is None:
         return ""

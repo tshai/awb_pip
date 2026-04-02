@@ -9,6 +9,14 @@ GA4_MEASUREMENT_ID_RE = re.compile(r"^G-[A-Z0-9]+$")
 
 @typechecked
 def normalize_legacy_script_closings(content: str) -> str:
+    """Normalize legacy script closings into a consistent format.
+
+    Args:
+        content (str): Value for content.
+
+    Returns:
+        str: String result produced by this function.
+    """
     current = str(content or "")
     if not current:
         return ""
@@ -17,6 +25,14 @@ def normalize_legacy_script_closings(content: str) -> str:
 
 @typechecked
 def contains_legacy_script_closings(content: str) -> bool:
+    """Compute contains legacy script closings for this workflow.
+
+    Args:
+        content (str): Value for content.
+
+    Returns:
+        bool: True when the condition is met; otherwise False.
+    """
     current = str(content or "")
     if not current:
         return False
@@ -25,6 +41,14 @@ def contains_legacy_script_closings(content: str) -> bool:
 
 @typechecked
 def normalize_ga4_measurement_id(value: str) -> str:
+    """Normalize ga4 measurement id into a consistent format.
+
+    Args:
+        value (str): Value for value.
+
+    Returns:
+        str: String result produced by this function.
+    """
     normalized = str(value or "").strip().upper()
     if GA4_MEASUREMENT_ID_RE.fullmatch(normalized):
         return normalized
@@ -33,6 +57,17 @@ def normalize_ga4_measurement_id(value: str) -> str:
 
 @typechecked
 def replace_managed_block(content: str, start_marker: str, end_marker: str, new_block: str) -> str:
+    """Compute replace managed block for this workflow.
+
+    Args:
+        content (str): Value for content.
+        start_marker (str): Value for start marker.
+        end_marker (str): Value for end marker.
+        new_block (str): Value for new block.
+
+    Returns:
+        str: String result produced by this function.
+    """
     current = str(content or "")
     start = str(start_marker or "")
     end = str(end_marker or "")
@@ -64,6 +99,14 @@ def replace_managed_block(content: str, start_marker: str, end_marker: str, new_
 
 @typechecked
 def build_ga4_head_inject_block(measurement_id: str) -> str:
+    """Build ga4 head inject block from the provided inputs.
+
+    Args:
+        measurement_id (str): Identifier for measurement.
+
+    Returns:
+        str: String result produced by this function.
+    """
     measurement = normalize_ga4_measurement_id(measurement_id)
     if not measurement:
         raise ValueError("Invalid GA4 measurement ID")
@@ -84,6 +127,15 @@ def build_ga4_head_inject_block(measurement_id: str) -> str:
 
 @typechecked
 def content_has_measurement_code(content: str, measurement_id: str) -> bool:
+    """Compute content has measurement code for this workflow.
+
+    Args:
+        content (str): Value for content.
+        measurement_id (str): Identifier for measurement.
+
+    Returns:
+        bool: True when the condition is met; otherwise False.
+    """
     normalized_measurement_id = normalize_ga4_measurement_id(measurement_id)
     if not normalized_measurement_id:
         return False
@@ -100,6 +152,15 @@ def content_has_measurement_code(content: str, measurement_id: str) -> bool:
 
 @typechecked
 def insert_managed_block_before_head_close(content: str, managed_block: str) -> str:
+    """Compute insert managed block before head close for this workflow.
+
+    Args:
+        content (str): Value for content.
+        managed_block (str): Value for managed block.
+
+    Returns:
+        str: String result produced by this function.
+    """
     current = str(content or "")
     block = str(managed_block or "").strip()
     if not block:

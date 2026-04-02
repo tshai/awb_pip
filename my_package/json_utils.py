@@ -7,7 +7,14 @@ from typeguard import typechecked  # type: ignore
 
 @typechecked
 def extract_json_after_think(text: str) -> dict[str, Any]:
-    """Extract JSON from model output, handling </think> and markdown code blocks."""
+    """Extract json after think from the provided data.
+
+    Args:
+        text (str): Value for text.
+
+    Returns:
+        dict[str, Any]: Dictionary containing computed output values.
+    """
     logger = logging.getLogger(__name__)
 
     if not text:
